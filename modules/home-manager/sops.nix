@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  activationPkgs ? pkgs,
   ...
 }:
 
@@ -107,7 +108,7 @@ let
         };
       };
       checkPhase = ''
-        ${sops-install-secrets}/bin/sops-install-secrets -check-mode=${
+        ${activationPkgs.sops-install-secrets}/bin/sops-install-secrets -check-mode=${
           if cfg.validateSopsFiles then "sopsfile" else "manifest"
         } "$out"
       '';
